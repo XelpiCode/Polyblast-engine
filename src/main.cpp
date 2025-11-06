@@ -11,6 +11,7 @@ struct openglState {
 
 bool initOpenGL(openglState &state);
 void cleanupOpenGL(openglState &state);
+void processInput(GLFWwindow *window);
 
 int main() {
 
@@ -20,6 +21,12 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
 
     while (!glfwWindowShouldClose(state.window)) {
+
+        processInput(state.window);
+
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         glfwSwapBuffers(state.window);
         glfwPollEvents();
     }
@@ -57,4 +64,10 @@ bool initOpenGL(openglState &state) {
     glViewport(0, 0, state.width, state.height);
 
     return initSuccess;
+}
+
+void processInput(GLFWwindow *window) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+    }
 }
