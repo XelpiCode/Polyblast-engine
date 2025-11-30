@@ -12,6 +12,7 @@ project(OPENGL_TEMPLATE_FINAL)
 set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory("thirdparty/glfw")
+add_subdirectory("thirdparty/stb_image")
 
 add_library(glad STATIC "thirdparty/glad/src/gl.c")
 target_include_directories(glad PUBLIC "thirdparty/glad/include")
@@ -24,6 +25,7 @@ target_link_libraries(OPENGL_TEMPLATE_FINAL
         PRIVATE
         glad
         glfw
+        stb_image
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")

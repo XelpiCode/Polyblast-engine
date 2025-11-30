@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <opengl_utils.hpp>
 #include <shader.hpp>
+#include <stb_image/stb_image.h>
 
 float vertices[] = {
     // positions         // colors
