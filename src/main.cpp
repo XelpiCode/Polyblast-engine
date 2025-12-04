@@ -23,6 +23,7 @@ int main() {
 
     Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
 
+// TODO : Need to abstract buffers
 #pragma region Buffers
 
     // Making buffer objects
@@ -57,6 +58,8 @@ int main() {
     glBindVertexArray(0);
 
 #pragma endregion
+
+
 
     while (!glfwWindowShouldClose(state.window)) {
 
