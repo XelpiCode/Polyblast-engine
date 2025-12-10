@@ -6,6 +6,7 @@
 #include <opengl_utils.hpp>
 #include <shader.hpp>
 #include <bufferObjects/VBO.hpp>
+#include <bufferObjects/VAO.hpp>
 
 
 float vertices[] = {
@@ -32,26 +33,22 @@ int main() {
 #pragma region Buffers
 
     // Making buffer objects
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
+    VAO VAO{};
+    VAO.Bind();
+
     VBO VBO(vertices, sizeof(vertices));
+
     unsigned int EBO;
     glGenBuffers(1, &EBO);
-
-    // Binding buffers
-    glBindVertexArray(VAO);
 
     // Vertex attribute pointers
 
     // for coords
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
+    VAO.LinkAttribute(VBO, 0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), nullptr);
     // for colors
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    VAO.LinkAttribute(VBO, 1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     // for tex coords
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
+    VAO.LinkAttribute(VBO, 2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
     // EBO binding
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -123,7 +120,7 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, tetoTexture);
 
         // to render the triangles
-        glBindVertexArray(VAO);
+        VAO.Bind();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
         glfwSwapBuffers(state.window);

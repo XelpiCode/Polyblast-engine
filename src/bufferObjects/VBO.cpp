@@ -6,7 +6,7 @@ VBO::VBO(const float *vertices, const GLsizeiptr size) {
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 };
 
-// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+// NOLINTNEXTLINE(readability-make-member-function-const)
 void VBO::Bind() {
     glBindBuffer(GL_ARRAY_BUFFER, ID);
 };
