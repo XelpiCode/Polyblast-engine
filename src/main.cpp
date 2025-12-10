@@ -29,7 +29,6 @@ int main() {
 
     Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
 
-// TODO : Need to abstract buffers
 #pragma region Buffers
 
     // Making buffer objects
