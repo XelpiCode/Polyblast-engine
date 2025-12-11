@@ -1,5 +1,4 @@
-#ifndef VAO_H
-#define VAO_H
+#pragma once
 
 #include <glad/gl.h>
 #include <bufferObjects/VBO.hpp>
@@ -28,5 +27,3 @@ class VAO {
 
     void Delete();
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef VBO_H
-#define VBO_H
+#pragma once
 
 #include<glad/gl.h>
 
@@ -18,5 +17,3 @@ class VBO {
     void Delete();
 
 };
-
-#endif

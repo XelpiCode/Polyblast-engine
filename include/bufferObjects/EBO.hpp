@@ -1,5 +1,4 @@
-#ifndef EBO_H
-#define EBO_H
+#pragma once
 
 #include "glad/gl.h"
 
@@ -18,5 +17,3 @@ class EBO {
     void Delete();
 
 };
-
-#endif

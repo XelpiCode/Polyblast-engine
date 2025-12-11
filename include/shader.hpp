@@ -1,5 +1,4 @@
-#ifndef SHADER_H
-#define SHADER_H
+#pragma once
 
 #include <glad/gl.h>
 #include <string>
@@ -25,5 +24,3 @@ class Shader {
     void setFloat(const std::string &name, float value) const;
 
 };
-
-#endif
