@@ -16,14 +16,9 @@ void VBO::Unbind() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 };
 
-// NOLINTNEXTLINE(readability-make-member-function-const)
-void VBO::Delete() {
+VBO::~VBO() {
     if (ID != 0) {
         glDeleteBuffers(1, &ID);
         ID = 0; // Reset ID after deletion to prevent double-free
     }
-};
-
-VBO::~VBO() {
-    Delete();
 }

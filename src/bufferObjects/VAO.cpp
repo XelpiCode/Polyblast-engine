@@ -31,14 +31,9 @@ void VAO::Unbind() {
      glBindVertexArray(0);
 };
 
-// NOLINTNEXTLINE(readability-make-member-function-const)
-void VAO::Delete() {
+VAO::~VAO() {
      if (ID != 0) {
           glDeleteVertexArrays(1, &ID);
           ID = 0; // Reset ID after deletion to prevent double-free
      }
-};
-
-VAO::~VAO() {
-     Delete();
 }

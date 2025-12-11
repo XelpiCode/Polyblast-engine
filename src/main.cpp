@@ -68,7 +68,7 @@ int main() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    // load the texture
+    // load the texture file
     int tetoTxWidth, tetoTxHeight, tetoTxNrChannels;
     unsigned char* tetoTxdata = stbi_load(
         RESOURCES_PATH "teto.jpg",
@@ -79,7 +79,6 @@ int main() {
     );
 
     if (tetoTxdata) {
-
         // put texture data onto the empty texture
         glTexImage2D(
             GL_TEXTURE_2D,
