@@ -115,17 +115,17 @@ int main() {
 
 #pragma endregion
 
+    Shader.use();
+
+    GLint transformLoc = glGetUniformLocation(Shader.ID, "transform");
+    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+
     while (!glfwWindowShouldClose(state.window)) {
 
         processInput(state.window);
 
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        GLint transformLoc = glGetUniformLocation(Shader.ID, "transform");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-
-        Shader.use();
 
         glBindTexture(GL_TEXTURE_2D, tetoTexture);
 
