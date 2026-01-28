@@ -108,18 +108,30 @@ int main() {
 
 #pragma region matrices
 
-    glm::vec4 vector(1.0f, 0.0f, 0.0f, 1.0f);
-    auto trans = glm::mat4(1.0f);
-    trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));\
-    trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0,1.0));
-    vector = trans * vector;
-    std::cout << "X:" << vector.x << " Y:"<< vector.y << " Z:" << vector.z << std::endl;
+    // model
+    auto model = glm::mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(2.0f));
+
+    // view
+    auto view = glm::mat4(1.0f);
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+    // projection
+    glm::mat4 projection = glm::perspective(
+        glm::radians(60.0f),
+        (float)state.width / (float)state.height,
+        0.1f,
+        100.0f
+    );
 
 #pragma endregion
 
     Shader.use();
 
-    Shader.setMat4("transform", trans);
+    Shader.setMat4("projection", projection);
+    Shader.setMat4("view", view);
+    Shader.setMat4("model", model);
 
     while (!glfwWindowShouldClose(state.window)) {
 
