@@ -32,7 +32,7 @@ class Texture {
 
     ~Texture();
 
-    void Bind();
+    void Bind(GLuint slot) const;
 
     void Unbind();
 };

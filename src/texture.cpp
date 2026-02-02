@@ -79,8 +79,8 @@ Texture::~Texture() {
     glDeleteTextures(1, &ID);
 }
 
-// NOLINTNEXTLINE(readability-make-member-function-const)
-void Texture::Bind() {
+void Texture::Bind(const GLuint slot) const {
+    glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, ID);
 }
 

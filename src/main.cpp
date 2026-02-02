@@ -32,6 +32,7 @@ int main() {
     Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
 
     Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
+    Texture tetoTex(RESOURCES_PATH "teto.png", TexFilter::Linear, TexWrap::Repeat);
 
 #pragma region Buffers
 
@@ -92,7 +93,12 @@ int main() {
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        containerTex.Bind();
+        // send textures to shader
+        containerTex.Bind(0);
+        Shader.setInt("containerTex", 0);
+
+        tetoTex.Bind(1);
+        Shader.setInt("tetoTex", 1);
 
         // to render the triangles
         VAO1.Bind();
