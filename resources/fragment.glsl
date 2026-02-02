@@ -8,5 +8,7 @@ uniform sampler2D containerTex;
 uniform sampler2D tetoTex;
 
 void main() {
-    FragColor = texture(containerTex, TexCoord);
+    vec4 teto = texture(tetoTex, TexCoord);
+    vec4 container = texture(containerTex, TexCoord);
+    FragColor = mix(container, teto, teto.a * 0.67);
 }
