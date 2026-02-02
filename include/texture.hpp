@@ -27,7 +27,7 @@ class Texture {
         const std::string& path,
         TexFilter filter,
         TexWrap wrap,
-        std::optional<glm::vec4> borderColor
+        std::optional<glm::vec4> borderColor = std::nullopt
     );
 
     ~Texture();

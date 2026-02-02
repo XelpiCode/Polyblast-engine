@@ -1,5 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image/stb_image.h>
 #include <iostream>
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
@@ -11,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <texture.hpp>
 
 float vertices[] = {
     // positions          // colors           // texture coords
@@ -31,6 +30,8 @@ int main() {
     if (!initOpenGL(state)) cleanupOpenGL(state);
 
     Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
+
+    Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
 
 #pragma region Buffers
 
@@ -54,53 +55,6 @@ int main() {
     // unbind buffer
     VBO1.Unbind();
     VAO1.Unbind();
-
-#pragma endregion
-
-// TODO : Need to abstract Textures
-#pragma region Textures
-
-    // generate an empty texture
-    GLuint tetoTexture;
-    glGenTextures(1, &tetoTexture);
-    glBindTexture(GL_TEXTURE_2D, tetoTexture);
-
-    // set texture filtering and wrapping options
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // load the texture file
-    int tetoTxWidth, tetoTxHeight, tetoTxNrChannels;
-    unsigned char* tetoTxdata = stbi_load(
-        RESOURCES_PATH "teto.png",
-        &tetoTxWidth,
-        &tetoTxHeight,
-        &tetoTxNrChannels,
-        false
-    );
-
-    if (tetoTxdata) {
-        // put texture data onto the empty texture
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RGBA,
-            tetoTxWidth,
-            tetoTxHeight,
-            0,
-            GL_RGBA,
-            GL_UNSIGNED_BYTE,
-            tetoTxdata
-        );
-        glGenerateMipmap(GL_TEXTURE_2D);
-    } else {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-
-    // clear unused image data
-    stbi_image_free(tetoTxdata);
 
 #pragma endregion
 
@@ -138,7 +92,7 @@ int main() {
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBindTexture(GL_TEXTURE_2D, tetoTexture);
+        containerTex.Bind();
 
         // to render the triangles
         VAO1.Bind();

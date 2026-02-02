@@ -1,7 +1,8 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image/stb_image.h>
 #include <texture.hpp>
 #include <iostream>
 #include <string>
-#include <stb_image/stb_image.h>
 
 static GLint  TexWrapMap[] = {
     GL_REPEAT,
