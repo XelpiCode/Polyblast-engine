@@ -3,8 +3,8 @@
 
 struct openglState {
     GLFWwindow* window{};
-    int width = 800;
-    int height = 600;
+    int width = 1200;
+    int height = 1000;
 };
 
 bool initOpenGL(openglState &state);
