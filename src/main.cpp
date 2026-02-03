@@ -69,6 +69,9 @@ int main() {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    // enable depth buffer
+    glEnable(GL_DEPTH_TEST);
+
     Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
 
     Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
@@ -87,9 +90,25 @@ int main() {
     // Vertex attribute pointers
 
     // for coords
-    VAO1.LinkAttribute(VBO1, 0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
+    VAO1.LinkAttribute(VBO1,
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        5 * sizeof(float),
+        nullptr
+    );
+
     // for tex coords
-    VAO1.LinkAttribute(VBO1, 1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), reinterpret_cast<void *>(3 * sizeof(float)));
+    VAO1.LinkAttribute(
+        VBO1,
+        1,
+        2,
+        GL_FLOAT,
+        GL_FALSE,
+        5 * sizeof(float),
+        reinterpret_cast<void *>(3 * sizeof(float))
+    );
 
     // unbind buffer
     VBO1.Unbind();
@@ -98,11 +117,6 @@ int main() {
 #pragma endregion
 
 #pragma region matrices
-
-    // model
-    auto model = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(2.0f));
 
     // view
     auto view = glm::mat4(1.0f);
@@ -122,14 +136,14 @@ int main() {
 
     Shader.setMat4("projection", projection);
     Shader.setMat4("view", view);
-    Shader.setMat4("model", model);
 
     while (!glfwWindowShouldClose(state.window)) {
 
         processInput(state.window);
 
+        // clear previous frame
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // send textures to shader
         containerTex.Bind(0);
@@ -137,6 +151,19 @@ int main() {
 
         tetoTex.Bind(1);
         Shader.setInt("tetoTex", 1);
+
+
+        // model
+        auto model = glm::mat4(1.0f);
+        model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(2.0f));
+        model = glm::scale(model, glm::vec3(0.8f));
+        model = glm::rotate(
+            model,
+            static_cast<float>(glfwGetTime()) * glm::radians(50.0f),
+            glm::vec3(0.5f, 1.0f, 0.0f)
+        );
+        Shader.setMat4("model", model);
 
         // to render the triangles
         VAO1.Bind();
