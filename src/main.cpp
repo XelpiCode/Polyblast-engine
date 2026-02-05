@@ -131,7 +131,7 @@ int main() {
 
     // projection
     glm::mat4 projection = glm::perspective(
-        glm::radians(60.0f),
+        glm::radians(45.0f),
         static_cast<float>(state.width) / static_cast<float>(state.height),
         0.1f,
         100.0f
