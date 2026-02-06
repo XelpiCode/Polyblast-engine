@@ -5,10 +5,15 @@
 class Camera {
     public:
 
+    float Yaw;
+    float Pitch;
+
     glm::vec3 cameraPos;
     glm::vec3 cameraFront;
     glm::vec3 cameraUp;
     const float cameraSpeed = 3.0f;
+
+    glm::vec3 direction;
 
     Camera();
 
