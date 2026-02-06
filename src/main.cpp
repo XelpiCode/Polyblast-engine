@@ -10,6 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <texture.hpp>
+#include <camera.hpp>
 
 float vertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -75,6 +76,9 @@ glm::vec3 cubePositions[] = {
 
 int main() {
 
+    float deltaTime = 0.0f;
+    float lastFrame = 0.0f;
+
     auto state = openglState();
     if (!initOpenGL(state)) cleanupOpenGL(state);
 
@@ -86,6 +90,9 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
+
+    // camera
+    Camera Camera{};
 
     Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
     Texture tetoTex(RESOURCES_PATH "teto.png", TexFilter::Linear, TexWrap::Repeat);
@@ -137,21 +144,19 @@ int main() {
         100.0f
     );
 
-    #pragma region camera
-
-    auto cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-    auto cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-    auto cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
-    #pragma endregion
-
     Shader.use();
 
     Shader.setMat4("projection", projection);
 
     while (!glfwWindowShouldClose(state.window)) {
 
+        // delta time
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         processInput(state.window);
+        Camera.processInput(state.window, deltaTime);
 
         // clear previous frame
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
@@ -166,13 +171,9 @@ int main() {
 
         #pragma region lookAt-matrix
 
-        constexpr float radius = 7.0f;
-        auto camX = static_cast<float>(sin(glfwGetTime()) * radius);
-        auto camZ = static_cast<float>(cos(glfwGetTime()) * radius);
-
         // view
         auto view = glm::mat4(1.0f);
-        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        view = Camera.getViewMatrix();
         Shader.setMat4("view", view);
 
         #pragma endregion
