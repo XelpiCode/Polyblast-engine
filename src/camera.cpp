@@ -6,11 +6,7 @@ Camera::Camera()
 :   cameraPos(0.0f, 0.0f, 3.0f),
     cameraFront(0.0f, 0.0f, -1.0f),
     cameraUp(0.0f, 1.0f, 0.0f)
-{
-    cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-    cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-    cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-}
+{}
 
 void Camera::processInput(GLFWwindow* window, float deltaTime) {
     const float normalSpeed = cameraSpeed * deltaTime;
