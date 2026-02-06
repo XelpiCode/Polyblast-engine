@@ -137,7 +137,7 @@ int main() {
 #pragma endregion
 
     // projection
-    glm::mat4 projection = glm::perspective(
+    const glm::mat4 projection = glm::perspective(
         glm::radians(45.0f),
         static_cast<float>(state.width) / static_cast<float>(state.height),
         0.1f,
@@ -155,6 +155,7 @@ int main() {
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
+        // process input
         processInput(state.window);
         Camera.processInput(state.window, deltaTime);
 
@@ -169,15 +170,11 @@ int main() {
         tetoTex.Bind(1);
         Shader.setInt("tetoTex", 1);
 
-        #pragma region lookAt-matrix
-
         // view
-        auto view = glm::mat4(1.0f);
-        view = Camera.getViewMatrix();
+        auto view = Camera.getViewMatrix();
         Shader.setMat4("view", view);
 
-        #pragma endregion
-
+        // use the buffer for drawing stuff
         VAO1.Bind();
 
         #pragma region model matrix
@@ -185,7 +182,7 @@ int main() {
         for (unsigned int i = 0; i < 10; i++) {
             auto model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
-            float angle = 20.0f * i;
+            const float angle = 20.0f * i;
             model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
             Shader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);

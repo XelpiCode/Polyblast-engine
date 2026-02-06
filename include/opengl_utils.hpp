@@ -8,5 +8,5 @@ struct openglState {
 };
 
 bool initOpenGL(openglState &state);
-void cleanupOpenGL(openglState &state);
+void cleanupOpenGL(const openglState &state);
 void processInput(GLFWwindow *window);

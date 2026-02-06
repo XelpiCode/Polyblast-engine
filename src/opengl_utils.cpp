@@ -3,7 +3,7 @@
 #include <opengl_utils.hpp>
 #include <iostream>
 
-void cleanupOpenGL(openglState &state) {
+void cleanupOpenGL(const openglState &state) {
     glfwDestroyWindow(state.window);
     glfwTerminate();
 }
