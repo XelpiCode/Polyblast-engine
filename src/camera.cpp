@@ -36,6 +36,12 @@ void Camera::processInput(GLFWwindow* window, float deltaTime) {
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * normalSpeed;
     }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        cameraPos += cameraUp * normalSpeed;
+    }
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+        cameraPos -= cameraUp * normalSpeed;
+    }
 }
 
 glm::mat4 Camera::getViewMatrix() const {
