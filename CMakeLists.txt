@@ -19,7 +19,7 @@ add_library(glad STATIC "thirdparty/glad/src/gl.c")
 target_include_directories(glad PUBLIC "thirdparty/glad/include")
 
 file(GLOB_RECURSE MY_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-add_executable(Polyblast ${MY_SOURCES})
+add_executable(Polyblast ${MY_SOURCES} resources.rc)
 target_include_directories(Polyblast PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 target_link_libraries(Polyblast

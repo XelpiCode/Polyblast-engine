@@ -13,7 +13,7 @@ void cleanupOpenGL(const openglState &state) {
 void setWindowIcon(const openglState &state) {
     GLFWimage images[1];
     images[0].pixels = stbi_load(
-        RESOURCES_PATH "Polyblast_logo.png",
+        RESOURCES_PATH "Logo/Polyblast.png",
         &images[0].width,
         &images[0].height,
         nullptr,
