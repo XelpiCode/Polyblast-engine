@@ -36,7 +36,7 @@ bool initOpenGL(openglState &state) {
         initSuccess = false;
     }
 
-    state.window = glfwCreateWindow(state.width, state.height, "OpenGL window", nullptr, nullptr);
+    state.window = glfwCreateWindow(state.width, state.height, "Polyblast", nullptr, nullptr);
     if (!state.window) {
         std::cout << "Failed to create window.\n";
         initSuccess = false;
