@@ -11,7 +11,7 @@
 <h3 align="center">Why the name "Polyblast"?</h3>
 
 <p align="center">
-  <b>Poly</b> represents versatility and flexibility,<br>
-  while <b>Blast</b> reflects speed, power, and performance<br>
-  together symbolizing a fast, flexible engine built for anything.
+  <b>Poly</b> = versatility &nbsp; • &nbsp; <b>Blast</b> = speed & performance  
+  <br>
+  A fast, flexible game engine.
 </p>
