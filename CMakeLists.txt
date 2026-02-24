@@ -15,7 +15,7 @@ add_subdirectory("thirdparty/glfw")
 add_subdirectory("thirdparty/stb_image")
 add_subdirectory("thirdparty/glm")
 
-add_library(glad STATIC "thirdparty/glad/src/gl.c")
+add_library(glad OBJECT "thirdparty/glad/src/gl.c")
 target_include_directories(glad PUBLIC "thirdparty/glad/include")
 
 file(GLOB_RECURSE MY_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
