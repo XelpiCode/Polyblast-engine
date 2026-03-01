@@ -84,6 +84,7 @@ int main() {
 
     if (!initOpenGL(state)) cleanupOpenGL(state);
 
+    // TODO: Make shader load only ONE shader and not 2
     Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
 
     const Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
@@ -102,7 +103,8 @@ int main() {
     // Vertex attribute pointers
 
     // for coords
-    VAO1.LinkAttribute(VBO1,
+    VAO1.LinkAttribute(
+        VBO1,
         0,
         3,
         GL_FLOAT,
@@ -128,7 +130,27 @@ int main() {
 
 #pragma endregion
 
+#pragma region lighting
+
+    VAO lightVAO{};
+    lightVAO.Bind();
+    lightVAO.LinkAttribute(
+        VBO1,
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        3* sizeof(float),
+        nullptr
+    );
+
+#pragma endregion
+
     Shader.use();
+
+    // set lighting uniforms
+    Shader.setVec3("objectColor", glm::vec3(1.0f, 0.8f, 0.31f)); // coral color
+    Shader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));   // white light
 
     while (!glfwWindowShouldClose(state.window)) {
 
