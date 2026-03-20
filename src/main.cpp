@@ -93,8 +93,8 @@ int main() {
 #pragma region Buffers
 
     // Making buffer objects
-    VAO VAO1{};
-    VAO1.Bind();
+    VAO objectVAO{};
+    objectVAO.Bind();
 
     VBO VBO1(vertices, sizeof(vertices));
 
@@ -103,7 +103,7 @@ int main() {
     // Vertex attribute pointers
 
     // for coords
-    VAO1.LinkAttribute(
+    objectVAO.LinkAttribute(
         VBO1,
         0,
         3,
@@ -114,7 +114,7 @@ int main() {
     );
 
     // for tex coords
-    VAO1.LinkAttribute(
+    objectVAO.LinkAttribute(
         VBO1,
         1,
         2,
@@ -126,7 +126,7 @@ int main() {
 
     // unbind buffer
     VBO1.Unbind();
-    VAO1.Unbind();
+    objectVAO.Unbind();
 
 
     // for light shaders
@@ -177,7 +177,7 @@ int main() {
         objectShader.setMat4("view", view);
 
         // use the buffer for drawing stuff
-        VAO1.Bind();
+        objectVAO.Bind();
 
         // projection
         const glm::mat4 projection = glm::perspective(
@@ -190,6 +190,7 @@ int main() {
 
         #pragma region object model matrix
 
+        // draw 10 cubes
         for (unsigned int i = 0; i < 10; i++) {
             auto model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);

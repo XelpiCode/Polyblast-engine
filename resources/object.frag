@@ -10,8 +10,15 @@ uniform vec3 objectColor;
 uniform vec3 lightColor;
 
 void main() {
+
+    float ambientStrength = 0.1;
+    vec3 ambient = ambientStrength * lightColor;
+
     vec4 teto = texture(tetoTex, TexCoord);
     vec4 container = texture(containerTex, TexCoord);
-//    FragColor = mix(container, teto, teto.a) * vec4(lightColor * objectColor, 1.0);
-    FragColor = vec4(lightColor * objectColor, 1.0);
+    vec4 tetoContainerColor = mix(container, teto, teto.a);
+
+    vec4 result = tetoContainerColor * vec4(ambient, 1.0);
+
+    FragColor = result;
 }
