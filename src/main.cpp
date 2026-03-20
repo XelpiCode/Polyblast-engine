@@ -140,7 +140,7 @@ int main() {
         3,
         GL_FLOAT,
         GL_FALSE,
-        3* sizeof(float),
+        5* sizeof(float),
         nullptr
     );
 
@@ -181,6 +181,15 @@ int main() {
         // use the buffer for drawing stuff
         VAO1.Bind();
 
+        // projection
+        const glm::mat4 projection = glm::perspective(
+            glm::radians(state.camera.camFov),
+            static_cast<float>(state.width) / static_cast<float>(state.height),
+            0.1f,
+            100.0f
+        );
+        Shader.setMat4("projection", projection);
+
         #pragma region model matrix
 
         for (unsigned int i = 0; i < 10; i++) {
@@ -193,15 +202,6 @@ int main() {
         }
 
         #pragma endregion
-
-        // projection
-        const glm::mat4 projection = glm::perspective(
-            glm::radians(state.camera.camFov),
-            static_cast<float>(state.width) / static_cast<float>(state.height),
-            0.1f,
-            100.0f
-        );
-        Shader.setMat4("projection", projection);
 
         // Draw triangles
         // glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
