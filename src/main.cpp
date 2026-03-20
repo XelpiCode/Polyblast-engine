@@ -128,10 +128,8 @@ int main() {
     VBO1.Unbind();
     VAO1.Unbind();
 
-#pragma endregion
 
-#pragma region lighting
-
+    // for light shaders
     VAO lightVAO{};
     lightVAO.Bind();
     lightVAO.LinkAttribute(
