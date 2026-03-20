@@ -144,12 +144,30 @@ int main() {
 
 #pragma endregion
 
+    double lastTime = glfwGetTime();
+    int frameCount = 0;
+
     while (!glfwWindowShouldClose(state.window)) {
 
         // delta time
         const auto currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+
+        // FPS monitoring
+        frameCount++;
+        double currentTime = glfwGetTime();
+        double elapsed = currentTime - lastTime;
+
+        if (elapsed >= 1.0f) {
+            double fps = frameCount / elapsed;
+
+            std::string title = "Polyblast - FPS: " + std::to_string(static_cast<int>(fps));
+            glfwSetWindowTitle(state.window, title.c_str());
+
+            frameCount = 0;
+            lastTime = currentTime;
+        }
 
         // process input
         processInput(state.window);
