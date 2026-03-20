@@ -84,8 +84,8 @@ int main() {
 
     if (!initOpenGL(state)) cleanupOpenGL(state);
 
-    // TODO: Make shader load only ONE shader and not 2
-    Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
+    Shader objectShader(RESOURCES_PATH "object.vert", RESOURCES_PATH "object.frag");
+    Shader lightShader(RESOURCES_PATH "light.vert", RESOURCES_PATH "light.frag");
 
     const Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
     const Texture tetoTex(RESOURCES_PATH "teto.png", TexFilter::Linear, TexWrap::Repeat);
@@ -146,12 +146,6 @@ int main() {
 
 #pragma endregion
 
-    Shader.use();
-
-    // set lighting uniforms
-    Shader.setVec3("objectColor", glm::vec3(1.0f, 0.8f, 0.31f)); // coral color
-    Shader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));   // white light
-
     while (!glfwWindowShouldClose(state.window)) {
 
         // delta time
@@ -167,16 +161,22 @@ int main() {
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        objectShader.use();
+
+        // set lighting uniforms
+        objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.8f, 0.31f)); // coral color
+        objectShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));   // white light
+
         // send textures to shader
         containerTex.Bind(0);
-        Shader.setInt("containerTex", 0);
+        objectShader.setInt("containerTex", 0);
 
         tetoTex.Bind(1);
-        Shader.setInt("tetoTex", 1);
+        objectShader.setInt("tetoTex", 1);
 
         // view
         auto view = state.camera.getViewMatrix();
-        Shader.setMat4("view", view);
+        objectShader.setMat4("view", view);
 
         // use the buffer for drawing stuff
         VAO1.Bind();
@@ -188,24 +188,44 @@ int main() {
             0.1f,
             100.0f
         );
-        Shader.setMat4("projection", projection);
+        objectShader.setMat4("projection", projection);
 
-        #pragma region model matrix
+        #pragma region object model matrix
 
         for (unsigned int i = 0; i < 10; i++) {
             auto model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
             const float angle = 20.0f * static_cast<float>(i);
             model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            Shader.setMat4("model", model);
+            objectShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
         #pragma endregion
 
-        // Draw triangles
-        // glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
+        #pragma region light model matrix
+
+        lightShader.use();
+
+        lightShader.setMat4("view", view);
+        lightShader.setMat4("projection", projection);
+
+
+        glm::vec3 lightPos(1.2f, 1.0f, 2.0f); // light cube pos
+
+        // lightCube transformations
+        auto lightModel = glm::mat4(1.0f);
+        lightModel = glm::translate(lightModel, lightPos);
+        lightModel = glm::scale(lightModel, glm::vec3(0.2f));
+
+        // send light source cube to light shader
+        lightShader.setMat4("model", lightModel);
+
+        lightVAO.Bind();
         glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        #pragma endregion
+
 
         glfwSwapBuffers(state.window);
         glfwPollEvents();
