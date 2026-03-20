@@ -19,7 +19,7 @@ class Camera {
 
     float camFov;
 
-    glm::vec3 direction;
+    glm::vec3 direction{};
     bool firstMouse = true;
 
     Camera(int width, int height, float fov);
