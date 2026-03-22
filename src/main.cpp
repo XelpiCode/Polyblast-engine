@@ -196,11 +196,15 @@ int main() {
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // light cube pos
+        glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
         objectShader.use();
 
         // set lighting uniforms
         objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.8f, 0.31f)); // coral color
         objectShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));   // white light
+        objectShader.setVec3("lightPos", lightPos);
 
         // send textures to shader
         containerTex.Bind(0);
@@ -240,8 +244,7 @@ int main() {
         lightShader.setMat4("view", view);
         lightShader.setMat4("projection", projection);
 
-
-        glm::vec3 lightPos(1.2f, 1.0f, 2.0f); // light cube pos
+        lightShader.use();
 
         // lightCube transformations
         auto lightModel = glm::mat4(1.0f);
