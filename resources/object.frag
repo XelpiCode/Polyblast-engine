@@ -19,9 +19,9 @@ void main() {
     vec4 container = texture(containerTex, TexCoord);
     vec4 tetoContainerColor = mix(container, teto, teto.a);
 
-    vec4 result = tetoContainerColor * vec4(ambient, 1.0);
-    FragColor = result;
+//    vec4 result = tetoContainerColor * vec4(ambient, 1.0);
+//    FragColor = result;
 
-//    vec3 result = objectColor * ambient;
-//    FragColor = vec4(result, 1.0);
+    vec3 result = objectColor * ambient;
+    FragColor = vec4(result, 1.0);
 }

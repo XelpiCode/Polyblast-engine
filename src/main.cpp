@@ -132,6 +132,7 @@ int main() {
         reinterpret_cast<void *>(3 * sizeof(float))
     );
 
+    // for normals
     objectVAO.LinkAttribute(
         VBO1,
         2,
@@ -226,15 +227,9 @@ int main() {
 
         #pragma region object model matrix
 
-        // draw 10 cubes
-        for (unsigned int i = 0; i < 10; i++) {
-            auto model = glm::mat4(1.0f);
-            model = glm::translate(model, cubePositions[i]);
-            const float angle = 20.0f * static_cast<float>(i);
-            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            objectShader.setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+        auto model = glm::mat4(1.0f);
+        objectShader.setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
         #pragma endregion
 
