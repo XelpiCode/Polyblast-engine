@@ -231,9 +231,24 @@ int main() {
 
         #pragma region object model matrix
 
-        auto model = glm::mat4(1.0f);
-        objectShader.setMat4("model", model);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        #pragma region model matrix
+
+        for (unsigned int i = 0; i < 10; i++) {
+
+            auto model = glm::mat4(1.0f);
+            const float angle = 20.0f * static_cast<float>(i);
+
+            model = glm::translate(model, cubePositions[i]);
+            model = glm::rotate(
+                model, glm::radians(angle),
+                glm::vec3(1.0f, 0.3f, 0.5f)
+            );
+
+            objectShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
+
+        #pragma endregion
 
         #pragma endregion
 
