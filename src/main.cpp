@@ -202,7 +202,7 @@ int main() {
         objectShader.use();
 
         // set lighting uniforms
-        objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.8f, 0.31f)); // coral color
+        objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f)); // coral color
         objectShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));   // white light
         objectShader.setVec3("lightPos", lightPos);
 
@@ -216,6 +216,8 @@ int main() {
         // view
         auto view = state.camera.getViewMatrix();
         objectShader.setMat4("view", view);
+
+        objectShader.setVec3("viewPos", state.camera.cameraPos);
 
         // use the buffer for drawing stuff
         objectVAO.Bind();
