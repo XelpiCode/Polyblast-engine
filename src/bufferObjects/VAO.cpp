@@ -7,11 +7,11 @@ VAO::VAO() {
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 void VAO::LinkAttribute(
      VBO& VBO,
-     GLuint index,
-     GLint size,
-     GLenum type,
-     GLboolean normalized,
-     GLsizei stride,
+     const GLuint index,
+     const GLint size,
+     const GLenum type,
+     const GLboolean normalized,
+     const GLsizei stride,
      const void* pointer
 ) {
      VBO.Bind();

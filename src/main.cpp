@@ -13,47 +13,55 @@
 #include <camera.hpp>
 
 float vertices[] = {
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+    // positions        // texCoords   // normals
 
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    // back face
+    -0.5f,-0.5f,-0.5f,  0.0f,0.0f,     0.0f,0.0f,-1.0f,
+     0.5f,-0.5f,-0.5f,  1.0f,0.0f,     0.0f,0.0f,-1.0f,
+     0.5f, 0.5f,-0.5f,  1.0f,1.0f,     0.0f,0.0f,-1.0f,
+     0.5f, 0.5f,-0.5f,  1.0f,1.0f,     0.0f,0.0f,-1.0f,
+    -0.5f, 0.5f,-0.5f,  0.0f,1.0f,     0.0f,0.0f,-1.0f,
+    -0.5f,-0.5f,-0.5f,  0.0f,0.0f,     0.0f,0.0f,-1.0f,
 
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    // front face
+    -0.5f,-0.5f, 0.5f,  0.0f,0.0f,     0.0f,0.0f, 1.0f,
+     0.5f,-0.5f, 0.5f,  1.0f,0.0f,     0.0f,0.0f, 1.0f,
+     0.5f, 0.5f, 0.5f,  1.0f,1.0f,     0.0f,0.0f, 1.0f,
+     0.5f, 0.5f, 0.5f,  1.0f,1.0f,     0.0f,0.0f, 1.0f,
+    -0.5f, 0.5f, 0.5f,  0.0f,1.0f,     0.0f,0.0f, 1.0f,
+    -0.5f,-0.5f, 0.5f,  0.0f,0.0f,     0.0f,0.0f, 1.0f,
 
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    // left face
+    -0.5f, 0.5f, 0.5f,  1.0f,0.0f,    -1.0f,0.0f,0.0f,
+    -0.5f, 0.5f,-0.5f,  1.0f,1.0f,    -1.0f,0.0f,0.0f,
+    -0.5f,-0.5f,-0.5f,  0.0f,1.0f,    -1.0f,0.0f,0.0f,
+    -0.5f,-0.5f,-0.5f,  0.0f,1.0f,    -1.0f,0.0f,0.0f,
+    -0.5f,-0.5f, 0.5f,  0.0f,0.0f,    -1.0f,0.0f,0.0f,
+    -0.5f, 0.5f, 0.5f,  1.0f,0.0f,    -1.0f,0.0f,0.0f,
 
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    // right face
+     0.5f, 0.5f, 0.5f,  1.0f,0.0f,     1.0f,0.0f,0.0f,
+     0.5f, 0.5f,-0.5f,  1.0f,1.0f,     1.0f,0.0f,0.0f,
+     0.5f,-0.5f,-0.5f,  0.0f,1.0f,     1.0f,0.0f,0.0f,
+     0.5f,-0.5f,-0.5f,  0.0f,1.0f,     1.0f,0.0f,0.0f,
+     0.5f,-0.5f, 0.5f,  0.0f,0.0f,     1.0f,0.0f,0.0f,
+     0.5f, 0.5f, 0.5f,  1.0f,0.0f,     1.0f,0.0f,0.0f,
 
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+    // bottom face
+    -0.5f,-0.5f,-0.5f,  0.0f,1.0f,     0.0f,-1.0f,0.0f,
+     0.5f,-0.5f,-0.5f,  1.0f,1.0f,     0.0f,-1.0f,0.0f,
+     0.5f,-0.5f, 0.5f,  1.0f,0.0f,     0.0f,-1.0f,0.0f,
+     0.5f,-0.5f, 0.5f,  1.0f,0.0f,     0.0f,-1.0f,0.0f,
+    -0.5f,-0.5f, 0.5f,  0.0f,0.0f,     0.0f,-1.0f,0.0f,
+    -0.5f,-0.5f,-0.5f,  0.0f,1.0f,     0.0f,-1.0f,0.0f,
+
+    // top face
+    -0.5f, 0.5f,-0.5f,  0.0f,1.0f,     0.0f,1.0f,0.0f,
+     0.5f, 0.5f,-0.5f,  1.0f,1.0f,     0.0f,1.0f,0.0f,
+     0.5f, 0.5f, 0.5f,  1.0f,0.0f,     0.0f,1.0f,0.0f,
+     0.5f, 0.5f, 0.5f,  1.0f,0.0f,     0.0f,1.0f,0.0f,
+    -0.5f, 0.5f, 0.5f,  0.0f,0.0f,     0.0f,1.0f,0.0f,
+    -0.5f, 0.5f,-0.5f,  0.0f,1.0f,     0.0f,1.0f,0.0f
 };
 
 // unsigned int indices[] = {
@@ -84,7 +92,8 @@ int main() {
 
     if (!initOpenGL(state)) cleanupOpenGL(state);
 
-    Shader Shader(RESOURCES_PATH "vertex.glsl", RESOURCES_PATH "fragment.glsl");
+    Shader objectShader(RESOURCES_PATH "object.vert", RESOURCES_PATH "object.frag");
+    Shader lightShader(RESOURCES_PATH "light.vert", RESOURCES_PATH "light.frag");
 
     const Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
     const Texture tetoTex(RESOURCES_PATH "teto.png", TexFilter::Linear, TexWrap::Repeat);
@@ -92,8 +101,8 @@ int main() {
 #pragma region Buffers
 
     // Making buffer objects
-    VAO VAO1{};
-    VAO1.Bind();
+    VAO objectVAO{};
+    objectVAO.Bind();
 
     VBO VBO1(vertices, sizeof(vertices));
 
@@ -102,33 +111,60 @@ int main() {
     // Vertex attribute pointers
 
     // for coords
-    VAO1.LinkAttribute(VBO1,
+    objectVAO.LinkAttribute(
+        VBO1,
         0,
         3,
         GL_FLOAT,
         GL_FALSE,
-        5 * sizeof(float),
+        8 * sizeof(float),
         nullptr
     );
 
     // for tex coords
-    VAO1.LinkAttribute(
+    objectVAO.LinkAttribute(
         VBO1,
         1,
         2,
         GL_FLOAT,
         GL_FALSE,
-        5 * sizeof(float),
+        8 * sizeof(float),
         reinterpret_cast<void *>(3 * sizeof(float))
+    );
+
+    // for normals
+    objectVAO.LinkAttribute(
+        VBO1,
+        2,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        8 * sizeof(float),
+        reinterpret_cast<void *>(5 * sizeof(float))
     );
 
     // unbind buffer
     VBO1.Unbind();
-    VAO1.Unbind();
+    objectVAO.Unbind();
+
+
+    // for light shaders
+    VAO lightVAO{};
+    lightVAO.Bind();
+    lightVAO.LinkAttribute(
+        VBO1,
+        0,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        8* sizeof(float),
+        nullptr
+    );
 
 #pragma endregion
 
-    Shader.use();
+    double lastTime = glfwGetTime();
+    int frameCount = 0;
 
     while (!glfwWindowShouldClose(state.window)) {
 
@@ -136,6 +172,21 @@ int main() {
         const auto currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+
+        // FPS monitoring
+        frameCount++;
+        double currentTime = glfwGetTime();
+        double elapsed = currentTime - lastTime;
+
+        if (elapsed >= 1.0f) {
+            double fps = frameCount / elapsed;
+
+            std::string title = "Polyblast - FPS: " + std::to_string(static_cast<int>(fps));
+            glfwSetWindowTitle(state.window, title.c_str());
+
+            frameCount = 0;
+            lastTime = currentTime;
+        }
 
         // process input
         processInput(state.window);
@@ -145,19 +196,42 @@ int main() {
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // light cube pos
+        glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
+        objectShader.use();
+
+        // set lighting uniforms
+        objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f)); // coral color
+        objectShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));   // white light
+        objectShader.setVec3("lightPos", lightPos);
+
         // send textures to shader
         containerTex.Bind(0);
-        Shader.setInt("containerTex", 0);
+        objectShader.setInt("containerTex", 0);
 
         tetoTex.Bind(1);
-        Shader.setInt("tetoTex", 1);
+        objectShader.setInt("tetoTex", 1);
 
         // view
         auto view = state.camera.getViewMatrix();
-        Shader.setMat4("view", view);
+        objectShader.setMat4("view", view);
+
+        objectShader.setVec3("viewPos", state.camera.cameraPos);
 
         // use the buffer for drawing stuff
-        VAO1.Bind();
+        objectVAO.Bind();
+
+        // projection
+        const glm::mat4 projection = glm::perspective(
+            glm::radians(state.camera.camFov),
+            static_cast<float>(state.width) / static_cast<float>(state.height),
+            0.1f,
+            100.0f
+        );
+        objectShader.setMat4("projection", projection);
+
+        #pragma region object model matrix
 
         #pragma region model matrix
 
@@ -172,24 +246,36 @@ int main() {
                 glm::vec3(1.0f, 0.3f, 0.5f)
             );
 
-            Shader.setMat4("model", model);
+            objectShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
         #pragma endregion
 
-        // projection
-        const glm::mat4 projection = glm::perspective(
-            glm::radians(state.camera.camFov),
-            static_cast<float>(state.width) / static_cast<float>(state.height),
-            0.1f,
-            100.0f
-        );
-        Shader.setMat4("projection", projection);
+        #pragma endregion
 
-        // Draw triangles
-        // glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
+        #pragma region light model matrix
+
+        lightShader.use();
+
+        lightShader.setMat4("view", view);
+        lightShader.setMat4("projection", projection);
+
+        lightShader.use();
+
+        // lightCube transformations
+        auto lightModel = glm::mat4(1.0f);
+        lightModel = glm::translate(lightModel, lightPos);
+        lightModel = glm::scale(lightModel, glm::vec3(0.2f));
+
+        // send light source cube to light shader
+        lightShader.setMat4("model", lightModel);
+
+        lightVAO.Bind();
         glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        #pragma endregion
+
 
         glfwSwapBuffers(state.window);
         glfwPollEvents();
