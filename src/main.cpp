@@ -198,6 +198,8 @@ int main() {
 
         // light cube pos
         glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+        lightPos.x = sin(glfwGetTime()) * 3.0f;
+        lightPos.z = cos(glfwGetTime()) * 3.0f;
 
         objectShader.use();
 
