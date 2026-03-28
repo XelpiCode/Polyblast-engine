@@ -13,11 +13,16 @@ uniform vec3 objectColor;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
 
+uniform mat4 model;
+uniform mat4 view;
+
 void main() {
+
+    vec4 viewlightPos = view * vec4(lightPos, 1.0); // convert lightPos from world to view space
 
     // calculating the direction of light
     vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(lightPos - FragPos);
+    vec3 lightDir = normalize(vec3(viewlightPos) - FragPos);
 
     // calculating the diffuse impact
     float diff = max(dot(norm, lightDir), 0.0);
@@ -29,7 +34,7 @@ void main() {
 
     // specular lighting
     float specularStrength = 0.5;
-    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 viewDir = normalize(-FragPos); // (cameraPos = 0 in view space) cameraPos - FragPos
     vec3 reflectDir = reflect(-lightDir, norm);
 
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
