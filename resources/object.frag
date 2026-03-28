@@ -13,7 +13,6 @@ uniform vec3 objectColor;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
 
-uniform mat4 model;
 uniform mat4 view;
 
 void main() {
