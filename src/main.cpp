@@ -92,8 +92,8 @@ int main() {
 
     if (!initOpenGL(state)) cleanupOpenGL(state);
 
-    Shader objectShader(RESOURCES_PATH "object.vert", RESOURCES_PATH "object.frag");
-    Shader lightShader(RESOURCES_PATH "light.vert", RESOURCES_PATH "light.frag");
+    Shader objectShader(RESOURCES_PATH "Shaders/object.vert", RESOURCES_PATH "Shaders/object.frag");
+    Shader lightShader(RESOURCES_PATH "Shaders/light.vert", RESOURCES_PATH "Shaders/light.frag");
 
     const Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
     const Texture tetoTex(RESOURCES_PATH "teto.png", TexFilter::Linear, TexWrap::Repeat);
@@ -198,8 +198,6 @@ int main() {
 
         // light cube pos
         glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-        lightPos.x = sin(glfwGetTime()) * 3.0f;
-        lightPos.z = cos(glfwGetTime()) * 3.0f;
 
         objectShader.use();
 
@@ -235,24 +233,33 @@ int main() {
 
         #pragma region object model matrix
 
-        #pragma region model matrix
+        objectShader.setVec3("material.ambient", glm::vec3(1.0f, 0.5f, 0.31f));
+        objectShader.setVec3("material.diffuse", glm::vec3(1.0f, 0.5f, 0.31f));
+        objectShader.setVec3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+        objectShader.setFloat("material.shininess", 32.0f);
 
-        for (unsigned int i = 0; i < 10; i++) {
+        // for 10 cubes
 
-            auto model = glm::mat4(1.0f);
-            const float angle = 20.0f * static_cast<float>(i);
+        // for (unsigned int i = 0; i < 10; i++) {
+        //
+        //     auto model = glm::mat4(1.0f);
+        //     const float angle = 20.0f * static_cast<float>(i);
+        //
+        //     model = glm::translate(model, cubePositions[i]);
+        //     model = glm::rotate(
+        //         model, glm::radians(angle),
+        //         glm::vec3(1.0f, 0.3f, 0.5f)
+        //     );
+        //
+        //     objectShader.setMat4("model", model);
+        //     glDrawArrays(GL_TRIANGLES, 0, 36);
+        // }
 
-            model = glm::translate(model, cubePositions[i]);
-            model = glm::rotate(
-                model, glm::radians(angle),
-                glm::vec3(1.0f, 0.3f, 0.5f)
-            );
+        // for a single cube
 
-            objectShader.setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+        objectShader.setMat4("model", glm::mat4(1.0f));
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        #pragma endregion
 
         #pragma endregion
 

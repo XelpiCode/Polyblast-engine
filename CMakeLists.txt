@@ -8,7 +8,7 @@ endif()
 
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build all libs static" FORCE)
 
-project(Polyblast)
+project(Polyblast)  
 set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory("thirdparty/glfw")
