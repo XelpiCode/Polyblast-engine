@@ -209,7 +209,6 @@ int main() {
         objectShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
         objectShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
-
         // send textures to shader
         containerTex.Bind(0);
         objectShader.setInt("containerTex", 0);
