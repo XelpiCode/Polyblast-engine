@@ -203,8 +203,12 @@ int main() {
 
         // set lighting uniforms
         objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f)); // coral color
-        objectShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));   // white light
         objectShader.setVec3("lightPos", lightPos);
+
+        objectShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
+        objectShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
+        objectShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+
 
         // send textures to shader
         containerTex.Bind(0);
@@ -233,6 +237,7 @@ int main() {
 
         #pragma region object model matrix
 
+        // setting material values
         objectShader.setVec3("material.ambient", glm::vec3(1.0f, 0.5f, 0.31f));
         objectShader.setVec3("material.diffuse", glm::vec3(1.0f, 0.5f, 0.31f));
         objectShader.setVec3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
