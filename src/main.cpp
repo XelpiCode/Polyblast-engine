@@ -95,7 +95,9 @@ int main() {
     Shader objectShader(RESOURCES_PATH "Shaders/object.vert", RESOURCES_PATH "Shaders/object.frag");
     Shader lightShader(RESOURCES_PATH "Shaders/light.vert", RESOURCES_PATH "Shaders/light.frag");
 
+    // set textures
     const Texture containerTex(RESOURCES_PATH "container2.png", TexFilter::Linear, TexWrap::Repeat);
+    const Texture containerSpecTex(RESOURCES_PATH "container2_specular.png", TexFilter::Linear, TexWrap::Repeat);
     const Texture tetoTex(RESOURCES_PATH "teto.png", TexFilter::Linear, TexWrap::Repeat);
 
 #pragma region Buffers
@@ -209,13 +211,6 @@ int main() {
         objectShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
         objectShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
-        // send textures to shader
-        containerTex.Bind(0);
-        objectShader.setInt("containerTex", 0);
-
-        tetoTex.Bind(1);
-        objectShader.setInt("tetoTex", 1);
-
         // view
         auto view = state.camera.getViewMatrix();
         objectShader.setMat4("view", view);
@@ -237,8 +232,15 @@ int main() {
         #pragma region object model matrix
 
         // setting material values
+        containerTex.Bind(0);
         objectShader.setInt("material.diffuse", 0);
-        objectShader.setVec3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+
+        containerSpecTex.Bind(1);
+        objectShader.setInt("material.specular", 1);
+
+        tetoTex.Bind(2);
+        objectShader.setInt("tetoTex", 2);
+
         objectShader.setFloat("material.shininess", 32.0f);
 
         // for 10 cubes
