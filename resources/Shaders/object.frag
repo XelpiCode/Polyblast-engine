@@ -52,14 +52,17 @@ void main() {
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular = light.specular * (spec * material.specular);
 
-    // getting mixed texture (not working rn)
-    vec4 teto = texture(tetoTex, TexCoord);
-    vec4 container = texture(containerTex, TexCoord);
-    vec4 tetoContainerColor = mix(container, teto, teto.a);
+//    // for mixed texture
+//    vec4 teto = texture(tetoTex, TexCoord * -1); // multiply by -1 to make it erect
+//    vec3 container = texture(material.diffuse, TexCoord).rgb;
+//    vec3 tetoContainerColor = mix(container, teto.rgb, teto.a);
+//    vec3 ambient2 = light.ambient * tetoContainerColor;
+//    vec3 diffuse2 = light.diffuse * diff * tetoContainerColor;
+//
+//    vec3 result = ambient2 + diffuse2 + specular;
 
-//    vec4 result = tetoContainerColor * vec4(ambient + diffuse + specular, 1.0);
-//    FragColor = result;
-
+    // for normal texture
     vec3 result = ambient + diffuse + specular;
+
     FragColor = vec4(result, 1.0);
 }
