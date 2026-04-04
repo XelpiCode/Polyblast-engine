@@ -95,7 +95,7 @@ int main() {
     Shader objectShader(RESOURCES_PATH "Shaders/object.vert", RESOURCES_PATH "Shaders/object.frag");
     Shader lightShader(RESOURCES_PATH "Shaders/light.vert", RESOURCES_PATH "Shaders/light.frag");
 
-    const Texture containerTex(RESOURCES_PATH "container.jpg", TexFilter::Linear, TexWrap::Repeat);
+    const Texture containerTex(RESOURCES_PATH "container2.png", TexFilter::Linear, TexWrap::Repeat);
     const Texture tetoTex(RESOURCES_PATH "teto.png", TexFilter::Linear, TexWrap::Repeat);
 
 #pragma region Buffers
@@ -237,8 +237,7 @@ int main() {
         #pragma region object model matrix
 
         // setting material values
-        objectShader.setVec3("material.ambient", glm::vec3(1.0f, 0.5f, 0.31f));
-        objectShader.setVec3("material.diffuse", glm::vec3(1.0f, 0.5f, 0.31f));
+        objectShader.setInt("material.diffuse", 0);
         objectShader.setVec3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
         objectShader.setFloat("material.shininess", 32.0f);
 

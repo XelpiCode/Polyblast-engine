@@ -5,7 +5,6 @@ in vec2 TexCoord;
 in vec3 Normal;
 in vec3 FragPos;
 
-uniform sampler2D containerTex;
 uniform sampler2D tetoTex;
 
 uniform vec3 lightPos;
@@ -15,8 +14,7 @@ uniform vec3 viewPos;
 uniform mat4 view;
 
 struct Material {
-    vec3 ambient;
-    vec3 diffuse;
+    sampler2D diffuse;
     vec3 specular;
     float shininess;
 };
@@ -37,14 +35,15 @@ void main() {
 
     vec4 viewlightPos = view * vec4(lightPos, 1.0); // convert lightPos from world to view space
 
-    // ambient light
-    vec3 ambient = light.ambient * material.ambient;
 
     // diffuse
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(vec3(viewlightPos) - FragPos); // calculating the direction of light
     float diff = max(dot(norm, lightDir), 0.0); // calculating the diffuse impact or angle
-    vec3 diffuse = light.diffuse * (diff * material.diffuse);
+    vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoord));
+
+    // ambient
+    vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoord));
 
     // specular lighting
     vec3 viewDir = normalize(-FragPos); // (cameraPos = 0 in view space) cameraPos - FragPos
@@ -53,7 +52,7 @@ void main() {
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular = light.specular * (spec * material.specular);
 
-    // getting mixed texture
+    // getting mixed texture (not working rn)
     vec4 teto = texture(tetoTex, TexCoord);
     vec4 container = texture(containerTex, TexCoord);
     vec4 tetoContainerColor = mix(container, teto, teto.a);
