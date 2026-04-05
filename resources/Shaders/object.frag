@@ -7,7 +7,6 @@ in vec3 FragPos;
 
 uniform sampler2D tetoTex;
 
-uniform vec3 lightPos;
 uniform vec3 objectColor;
 uniform vec3 viewPos;
 
@@ -33,7 +32,7 @@ uniform Light light;
 
 void main() {
 
-    vec4 viewlightPos = view * vec4(lightPos, 1.0); // convert lightPos from world to view space
+    vec4 viewlightPos = view * vec4(light.position, 1.0); // convert lightPos from world to view space
 
     // ambient
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoord));
