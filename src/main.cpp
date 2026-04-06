@@ -98,7 +98,6 @@ int main() {
     // set textures
     const Texture containerTex(RESOURCES_PATH "container2.png", TexFilter::Linear, TexWrap::Repeat);
     const Texture containerSpecTex(RESOURCES_PATH "container2_specular.png", TexFilter::Linear, TexWrap::Repeat);
-    const Texture tetoTex(RESOURCES_PATH "teto.png", TexFilter::Linear, TexWrap::Repeat);
 
 #pragma region Buffers
 
@@ -208,7 +207,7 @@ int main() {
         objectShader.setVec3("light.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
 
         objectShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-        objectShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
+        objectShader.setVec3("light.diffuse", glm::vec3(0.7f, 0.7f, 0.7f));
         objectShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
         // view
@@ -237,9 +236,6 @@ int main() {
 
         containerSpecTex.Bind(1);
         objectShader.setInt("material.specular", 1);
-
-        tetoTex.Bind(2);
-        objectShader.setInt("tetoTex", 2);
 
         objectShader.setFloat("material.shininess", 32.0f);
 
