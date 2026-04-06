@@ -204,11 +204,15 @@ int main() {
 
         // set lighting uniforms
         objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f)); // coral color
-        objectShader.setVec3("light.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+        objectShader.setVec3("light.position", lightPos);
 
         objectShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-        objectShader.setVec3("light.diffuse", glm::vec3(0.7f, 0.7f, 0.7f));
+        objectShader.setVec3("light.diffuse", glm::vec3(0.6f));
         objectShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+
+        objectShader.setFloat("light.constant", 1.0f);
+        objectShader.setFloat("light.linear", 0.09f);
+        objectShader.setFloat("light.quadratic", 0.032f);
 
         // view
         auto view = state.camera.getViewMatrix();
