@@ -32,14 +32,14 @@ uniform Light light;
 
 void main() {
 
-    vec4 viewlightPos = view * vec4(light.position, 1.0); // convert lightPos from world to view space
+    vec3 viewlightPos = vec3(view * vec4(light.position, 1.0)); // convert lightPos from world to view space
 
     // ambient
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoord));
 
     // diffuse
     vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(vec3(viewlightPos) - FragPos); // calculating the direction of light
+    vec3 lightDir = normalize(viewlightPos - FragPos); // calculating the direction of light
     float diff = max(dot(norm, lightDir), 0.0); // calculating the diffuse impact or angle
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoord));
 
@@ -48,7 +48,7 @@ void main() {
     vec3 reflectDir = reflect(-lightDir, norm);
 
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoord));
+    vec3 specular = light.specular * spec * texture(material.specular, TexCoord).rgb;
 
 //    // for mixed texture
 //    vec4 teto = texture(tetoTex, TexCoord * -1); // multiply by -1 to make it erect
