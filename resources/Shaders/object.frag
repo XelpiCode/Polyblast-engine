@@ -8,7 +8,6 @@ in vec3 FragPos;
 uniform sampler2D tetoTex;
 
 uniform vec3 objectColor;
-uniform vec3 viewPos;
 
 uniform mat4 view;
 
@@ -21,7 +20,7 @@ struct Material {
 uniform Material material;
 
 struct Light {
-    vec3 position;
+    vec3 direction;
 
     vec3 ambient;
     vec3 diffuse;
@@ -32,14 +31,12 @@ uniform Light light;
 
 void main() {
 
-    vec3 viewlightPos = vec3(view * vec4(light.position, 1.0)); // convert lightPos from world to view space
-
     // ambient
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoord));
 
     // diffuse
     vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(viewlightPos - FragPos); // calculating the direction of light
+    vec3 lightDir = normalize(mat3(view) * (-light.direction)); // calculating the direction of light
     float diff = max(dot(norm, lightDir), 0.0); // calculating the diffuse impact or angle
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoord));
 

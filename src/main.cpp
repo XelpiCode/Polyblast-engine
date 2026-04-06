@@ -205,7 +205,7 @@ int main() {
 
         // set lighting uniforms
         objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f)); // coral color
-        objectShader.setVec3("light.position", lightPos);
+        objectShader.setVec3("light.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
 
         objectShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
         objectShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
@@ -245,25 +245,21 @@ int main() {
 
         // for 10 cubes
 
-        // for (unsigned int i = 0; i < 10; i++) {
-        //
-        //     auto model = glm::mat4(1.0f);
-        //     const float angle = 20.0f * static_cast<float>(i);
-        //
-        //     model = glm::translate(model, cubePositions[i]);
-        //     model = glm::rotate(
-        //         model, glm::radians(angle),
-        //         glm::vec3(1.0f, 0.3f, 0.5f)
-        //     );
-        //
-        //     objectShader.setMat4("model", model);
-        //     glDrawArrays(GL_TRIANGLES, 0, 36);
-        // }
+        for(unsigned int i = 0; i < 10; i++)
+        {
+            auto model = glm::mat4(1.0f);
+            model = glm::translate(model, cubePositions[i]);
+            float angle = 20.0f * static_cast<float>(i);
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            objectShader.setMat4("model", model);
 
-        // for a single cube
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
-        objectShader.setMat4("model", glm::mat4(1.0f));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        // // for a single cube
+        //
+        // objectShader.setMat4("model", glm::mat4(1.0f));
+        // glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
         #pragma endregion
