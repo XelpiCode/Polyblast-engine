@@ -208,9 +208,10 @@ int main() {
         objectShader.setVec3("light.position", state.camera.cameraPos);
         objectShader.setVec3("light.direction", state.camera.cameraFront);
         objectShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        objectShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
 
         objectShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-        objectShader.setVec3("light.diffuse", glm::vec3(0.6f));
+        objectShader.setVec3("light.diffuse", glm::vec3(0.8f));
         objectShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
         objectShader.setFloat("light.constant", 1.0f);
