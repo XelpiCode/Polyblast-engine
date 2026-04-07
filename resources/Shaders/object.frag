@@ -17,6 +17,16 @@ struct Material {
 
 uniform Material material;
 
+struct DirLight {
+    vec3 direction;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
+uniform dirLight;
+
 struct Light {
     vec3 position;
     vec3 direction;
@@ -33,6 +43,8 @@ struct Light {
 };
 
 uniform Light light;
+
+vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 
 void main() {
 
@@ -70,4 +82,22 @@ void main() {
     vec3 result = (ambient + diffuse + specular) * attenuation;
     FragColor = vec4(result, 1.0);
 
+}
+
+vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
+    vec3 lightDir = normalize(-light.direction);
+
+    // diffuse shading
+    float diff = max(dot(normal, lightDir), 0.0);
+
+    // specular shading
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+
+    // combine results
+    vec3 ambient  = light.ambient * vec3(texture(material.diffuse, TexCoord));
+    vec3 diffuse  = light.diffuse * diff * vec3(texture(material.diffuse, TexCoord));
+    vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoord));
+
+    return (ambient + diffuse + specular);
 }
