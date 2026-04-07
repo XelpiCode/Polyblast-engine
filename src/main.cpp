@@ -204,7 +204,10 @@ int main() {
 
         // set lighting uniforms
         objectShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f)); // coral color
-        objectShader.setVec3("light.position", lightPos);
+
+        objectShader.setVec3("light.position", state.camera.cameraPos);
+        objectShader.setVec3("light.direction", state.camera.cameraFront);
+        objectShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
 
         objectShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
         objectShader.setVec3("light.diffuse", glm::vec3(0.6f));
@@ -264,27 +267,27 @@ int main() {
 
         #pragma endregion
 
-        #pragma region light model matrix
-
-        lightShader.use();
-
-        lightShader.setMat4("view", view);
-        lightShader.setMat4("projection", projection);
-
-        lightShader.use();
-
-        // lightCube transformations
-        auto lightModel = glm::mat4(1.0f);
-        lightModel = glm::translate(lightModel, lightPos);
-        lightModel = glm::scale(lightModel, glm::vec3(0.2f));
-
-        // send light source cube to light shader
-        lightShader.setMat4("model", lightModel);
-
-        lightVAO.Bind();
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        #pragma endregion
+        // #pragma region light model matrix
+        //
+        // lightShader.use();
+        //
+        // lightShader.setMat4("view", view);
+        // lightShader.setMat4("projection", projection);
+        //
+        // lightShader.use();
+        //
+        // // lightCube transformations
+        // auto lightModel = glm::mat4(1.0f);
+        // lightModel = glm::translate(lightModel, lightPos);
+        // lightModel = glm::scale(lightModel, glm::vec3(0.2f));
+        //
+        // // send light source cube to light shader
+        // lightShader.setMat4("model", lightModel);
+        //
+        // lightVAO.Bind();
+        // glDrawArrays(GL_TRIANGLES, 0, 36);
+        //
+        // #pragma endregion
 
 
         glfwSwapBuffers(state.window);
