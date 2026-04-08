@@ -270,9 +270,7 @@ int main() {
         // view
         auto view = state.camera.getViewMatrix();
         objectShader.setMat4("view", view);
-
-        objectShader.setVec3("viewPos", state.camera.cameraPos);
-
+        
         // use the buffer for drawing stuff
         objectVAO.Bind();
 
