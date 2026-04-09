@@ -55,7 +55,6 @@ uniform Material material;
 uniform DirLight dirLight;
 #define NR_POINT_LIGHTS 4
 uniform PointLight pointLights[NR_POINT_LIGHTS];
-uniform SpotLight spotLight;
 
 // MAKE SURE TO NORMALIZE THE NORMALS !!!
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
@@ -74,9 +73,6 @@ void main() {
     // point lights
     for (int i = 0; i < NR_POINT_LIGHTS; i++)
     result += calcPointLight(pointLights[i], norm, FragPos, viewDir);
-
-    // spot light
-    result += calcSpotLight(spotLight, norm, FragPos, viewDir);
 
     FragColor = vec4(result, 1.0);
 }

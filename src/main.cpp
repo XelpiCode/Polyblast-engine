@@ -255,18 +255,6 @@ int main() {
         objectShader.setFloat("pointLights[3].linear", 0.09f);
         objectShader.setFloat("pointLights[3].quadratic", 0.032f);
 
-        // spotlight
-        objectShader.setVec3("spotLight.position", state.camera.cameraPos);
-        objectShader.setVec3("spotLight.direction", state.camera.cameraFront);
-        objectShader.setVec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-        objectShader.setVec3("spotLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
-        objectShader.setVec3("spotLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
-        objectShader.setFloat("spotLight.constant", 1.0f);
-        objectShader.setFloat("spotLight.linear", 0.09f);
-        objectShader.setFloat("spotLight.quadratic", 0.032f);
-        objectShader.setFloat("spotLight.innerCutOff", glm::cos(glm::radians(12.5f)));
-        objectShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
-
         // view
         auto view = state.camera.getViewMatrix();
         objectShader.setMat4("view", view);
