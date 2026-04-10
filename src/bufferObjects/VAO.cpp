@@ -17,7 +17,6 @@ void VAO::LinkAttribute(
      VBO.Bind();
      glVertexAttribPointer(index, size, type, normalized, stride, pointer);
      glEnableVertexAttribArray(index);
-     VBO.Unbind();
 };
 
 // NOLINTNEXTLINE(readability-make-member-function-const)
