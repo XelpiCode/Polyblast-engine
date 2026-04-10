@@ -3,7 +3,7 @@
 Mesh::Mesh(
     const std::vector<Vertex> &vertices,
     const std::vector<unsigned int> &indices,
-    const std::vector<Texture> &textures
+    const std::vector<MeshTexture> &textures
 ) {
     this->vertices = vertices;
     this->indices = indices;
