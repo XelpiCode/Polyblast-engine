@@ -6,11 +6,13 @@
 #include <bufferObjects/VBO.hpp>
 #include <bufferObjects/VAO.hpp>
 #include <bufferObjects/EBO.hpp>
+#include <cstddef> // for offsetof function
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <texture.hpp>
 #include <camera.hpp>
+#include <mesh.hpp>
 
 float vertices[] = {
     // positions        // texCoords   // normals
@@ -118,30 +120,30 @@ int main() {
         3,
         GL_FLOAT,
         GL_FALSE,
-        8 * sizeof(float),
-        nullptr
-    );
-
-    // for tex coords
-    objectVAO.LinkAttribute(
-        VBO1,
-        1,
-        2,
-        GL_FLOAT,
-        GL_FALSE,
-        8 * sizeof(float),
-        reinterpret_cast<void *>(3 * sizeof(float))
+        8 * sizeof(Vertex),
+        reinterpret_cast<void *>(offsetof(Vertex, Position))
     );
 
     // for normals
     objectVAO.LinkAttribute(
         VBO1,
-        2,
+        1,
         3,
         GL_FLOAT,
         GL_FALSE,
-        8 * sizeof(float),
-        reinterpret_cast<void *>(5 * sizeof(float))
+        8 * sizeof(Vertex),
+        reinterpret_cast<void *>(offsetof(Vertex, Normal))
+    );
+
+    // for tex coords
+    objectVAO.LinkAttribute(
+        VBO1,
+        2,
+        2,
+        GL_FLOAT,
+        GL_FALSE,
+        8 * sizeof(Vertex),
+        reinterpret_cast<void *>(offsetof(Vertex, TexCoords))
     );
 
     // unbind buffer
