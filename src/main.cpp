@@ -14,7 +14,7 @@
 #include <camera.hpp>
 #include <mesh.hpp>
 
-float vertices[] = {
+float verticesOld[] = {
     // positions        // texCoords   // normals
 
     // back face
@@ -66,6 +66,16 @@ float vertices[] = {
     -0.5f, 0.5f,-0.5f,  0.0f,1.0f,     0.0f,1.0f,0.0f
 };
 
+std::vector<Vertex> vertices = {
+    // back face
+    { {-0.5f,-0.5f,-0.5f}, {0.0f,0.0f,-1.0f},{0.0f,0.0f} },
+    { {0.5f,-0.5f,-0.5f}, {0.0f,0.0f,-1.0f},{1.0f,0.0f}  },
+    { {0.5f, 0.5f,-0.5f}, {0.0f,0.0f,-1.0f},{1.0f,1.0f}  },
+    { {0.5f, 0.5f,-0.5f}, {0.0f,0.0f,-1.0f},{1.0f,1.0f}  },
+    { {-0.5f, 0.5f,-0.5f}, {0.0f,0.0f,-1.0f},{0.0f,1.0f} },
+    { {-0.5f,-0.5f,-0.5f}, {0.0f,0.0f,-1.0f},{0.0f,0.0f} },
+};
+
 // unsigned int indices[] = {
 //     2, 3, 1,   // first triangle
 //     3, 0, 1
@@ -107,7 +117,7 @@ int main() {
     VAO objectVAO{};
     objectVAO.Bind();
 
-    VBO VBO1(vertices, sizeof(vertices));
+    VBO VBO1(vertices.data(),  static_cast<GLsizeiptr>( sizeof(Vertex) * vertices.size() ));
 
     // EBO EBO1(indices, sizeof(indices));
 
