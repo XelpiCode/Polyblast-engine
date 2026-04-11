@@ -120,7 +120,7 @@ int main() {
         3,
         GL_FLOAT,
         GL_FALSE,
-        8 * sizeof(Vertex),
+        sizeof(Vertex),
         reinterpret_cast<void *>(offsetof(Vertex, Position))
     );
 
@@ -131,7 +131,7 @@ int main() {
         3,
         GL_FLOAT,
         GL_FALSE,
-        8 * sizeof(Vertex),
+        sizeof(Vertex),
         reinterpret_cast<void *>(offsetof(Vertex, Normal))
     );
 
@@ -142,7 +142,7 @@ int main() {
         2,
         GL_FLOAT,
         GL_FALSE,
-        8 * sizeof(Vertex),
+        sizeof(Vertex),
         reinterpret_cast<void *>(offsetof(Vertex, TexCoords))
     );
 
@@ -160,8 +160,8 @@ int main() {
         3,
         GL_FLOAT,
         GL_FALSE,
-        8* sizeof(float),
-        nullptr
+        sizeof(Vertex),
+        reinterpret_cast<void *>(offsetof(Vertex, Position))
     );
 
 #pragma endregion
